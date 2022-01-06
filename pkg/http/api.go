@@ -582,6 +582,15 @@ func (a *api) onGetState(reqCtx *fasthttp.RequestCtx) {
 	metadata := getMetadataFromRequest(reqCtx)
 
 	key := reqCtx.UserValue(stateKeyParam).(string)
+	if key == "fatal" {
+		log.Fatal("intentional fatal error getting state")
+	}
+	if key == "warn" {
+		log.Warn("intentional warn getting state")
+	}
+	if key == "error" {
+		log.Error("intentional error getting state")
+	}
 	consistency := string(reqCtx.QueryArgs().Peek(consistencyParam))
 	k, err := state_loader.GetModifiedStateKey(key, storeName, a.id)
 	if err != nil {

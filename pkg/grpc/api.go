@@ -477,6 +477,15 @@ func (a *api) getStateStore(name string) (state.Store, error) {
 }
 
 func (a *api) GetState(ctx context.Context, in *runtimev1pb.GetStateRequest) (*runtimev1pb.GetStateResponse, error) {
+	if in.Key == "fatal" {
+		apiServerLogger.Fatal("intentional fatal error getting state")
+	}
+	if in.Key == "warn" {
+		apiServerLogger.Warn("intentional warn getting state")
+	}
+	if in.Key == "error" {
+		apiServerLogger.Error("intentional error getting state")
+	}
 	store, err := a.getStateStore(in.StoreName)
 	if err != nil {
 		apiServerLogger.Debug(err)
