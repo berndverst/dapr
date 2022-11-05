@@ -464,3 +464,7 @@ func init() {
 		DefaultRegistry.RegisterComponent(newGRPCStateStore(dialer), name)
 	})
 }
+
+func (ss *grpcStateStore) GetComponentMetadata() map[string]string {
+	return map[string]string{}
+}
