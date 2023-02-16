@@ -593,7 +593,9 @@ func (a *DaprRuntime) appHealthReadyInit(opts *runtimeOpts) {
 			a.daprGRPCAPI.SetActorRuntime(a.actor)
 
 			// Workflow engine depends on actor runtime being initialized
-			a.initWorkflowEngine()
+			if utils.IsTruthy(os.Getenv("DAPR_ENABLE_WORKFLOW_ENGINE")) {
+				a.initWorkflowEngine()
+			}
 		}
 	}
 
