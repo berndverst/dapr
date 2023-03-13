@@ -58,6 +58,28 @@ func AddDaprEnvVarsToContainers(containers map[int]corev1.Container) []PatchOper
 	return envPatchOps
 }
 
+func GetWorkloadIdentityEnv(containers map[int]corev1.Container) []corev1.EnvVar {
+	envs := []corev1.EnvVar{}
+	copy := []string{"AZURE_AUTHORITY_HOST", "AZURE_CLIENT_ID", "AZURE_FEDERATED_TOKEN_FILE", "AZURE_TENANT_ID"}
+	var found bool
+	for _, word := range copy {
+		found = false
+		for _, container := range containers {
+			for _, env := range container.Env {
+				if env.Name == word {
+					envs = append(envs, env)
+					found = true
+					break
+				}
+			}
+			if found {
+				break
+			}
+		}
+	}
+	return envs
+}
+
 // AddDaprSideCarInjectedLabel adds Dapr label to patch pod so list of patched pods can be retrieved more efficiently
 func AddDaprSideCarInjectedLabel(labels map[string]string) PatchOperation {
 	if len(labels) == 0 { // empty labels

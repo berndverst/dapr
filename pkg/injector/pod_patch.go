@@ -120,6 +120,8 @@ func (i *injector) getPodPatchOperations(ar *v1.AdmissionReview,
 		return nil, err
 	}
 
+	sidecarContainer.Env = append(sidecarContainer.Env, sidecar.GetWorkloadIdentityEnv(appContainers)...)
+
 	// Create the list of patch operations
 	patchOps = []sidecar.PatchOperation{}
 	if len(pod.Spec.Containers) == 0 { // set to empty to support add operations individually
