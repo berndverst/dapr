@@ -26,7 +26,7 @@ require (
 	github.com/hashicorp/go-msgpack v1.1.5
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/hashicorp/golang-lru v0.5.4
-	github.com/hashicorp/raft v1.3.11
+	github.com/hashicorp/raft v1.4.0
 	github.com/hashicorp/raft-boltdb v0.0.0-20220329195025-15018e9b97e0
 	github.com/jhump/protoreflect v1.13.0
 	github.com/kelseyhightower/envconfig v1.4.0
@@ -38,7 +38,7 @@ require (
 	github.com/prometheus/client_model v0.3.0
 	github.com/prometheus/common v0.37.0
 	github.com/sony/gobreaker v0.5.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.2
 	github.com/tidwall/transform v0.0.0-20201103190739-32f242e2dbde
 	github.com/valyala/fasthttp v1.40.0
 	go.opencensus.io v0.23.0
@@ -138,7 +138,7 @@ require (
 	github.com/apache/pulsar-client-go v0.9.0 // indirect
 	github.com/apache/rocketmq-client-go/v2 v2.1.1-rc2 // indirect
 	github.com/ardielle/ardielle-go v1.5.2 // indirect
-	github.com/armon/go-metrics v0.3.9 // indirect
+	github.com/armon/go-metrics v0.4.1 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/aws/aws-sdk-go v1.44.119 // indirect
 	github.com/awslabs/kinesis-aggregation/go v0.0.0-20210630091500-54e17340d32f // indirect
@@ -316,7 +316,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stathat/consistent v1.0.0 // indirect
 	github.com/stoewer/go-strcase v1.2.0 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
+	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/supplyon/gremcos v0.1.38 // indirect
 	github.com/tchap/go-patricia/v2 v2.3.1 // indirect
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.518 // indirect
