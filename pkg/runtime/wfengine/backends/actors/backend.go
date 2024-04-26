@@ -387,7 +387,7 @@ func (abe *ActorBackend) PurgeOrchestrationState(ctx context.Context, id api.Ins
 }
 
 // Start implements backend.Backend
-func (abe *ActorBackend) Start(ctx context.Context) error {
+func (abe *ActorBackend) Start(ctx context.Context, _ []string, _ []string) error {
 	var err error
 	abe.startedOnce.Do(func() {
 		err = abe.validateConfiguration()

@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/microsoft/durabletask-go/backend"
+	"github.com/microsoft/durabletask-go/task"
 	"google.golang.org/grpc"
 
 	"github.com/dapr/dapr/pkg/components/wfbackend"
@@ -37,7 +38,7 @@ type WorkflowEngine struct {
 
 	Backend              backend.Backend
 	executor             backend.Executor
-	worker               backend.TaskHubWorker
+	worker               task.TaskHubWorker
 	registerGrpcServerFn func(grpcServer grpc.ServiceRegistrar)
 
 	startMutex      sync.Mutex
@@ -149,7 +150,7 @@ func (wfe *WorkflowEngine) Start(ctx context.Context) (err error) {
 		wfe.executor,
 		wfBackendLogger,
 		backend.WithMaxParallelism(wfe.spec.GetMaxConcurrentActivityInvocations()))
-	wfe.worker = backend.NewTaskHubWorker(wfe.Backend, orchestrationWorker, activityWorker, wfBackendLogger)
+	wfe.worker = task.NewTaskHubWorker(wfe.Backend, orchestrationWorker, activityWorker, wfBackendLogger, nil)
 
 	// Start the Durable Task worker, which will allow workflows to be scheduled and execute.
 	if err := wfe.worker.Start(ctx); err != nil {
