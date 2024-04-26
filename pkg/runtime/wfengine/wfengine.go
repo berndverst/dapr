@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/microsoft/durabletask-go/backend"
+	"github.com/microsoft/durabletask-go/task"
 	"google.golang.org/grpc"
 
 	"github.com/dapr/dapr/pkg/actors"
@@ -35,7 +36,7 @@ type WorkflowEngine struct {
 
 	backend              *actorBackend
 	executor             backend.Executor
-	worker               backend.TaskHubWorker
+	worker               task.TaskHubWorker
 	registerGrpcServerFn func(grpcServer grpc.ServiceRegistrar)
 
 	workflowActor *workflowActor
@@ -229,7 +230,7 @@ func (wfe *WorkflowEngine) Start(ctx context.Context) (err error) {
 
 	orchestrationWorker := backend.NewOrchestrationWorker(wfe.backend, wfe.executor, wfBackendLogger, parallelismOpts)
 	activityWorker := backend.NewActivityTaskWorker(wfe.backend, wfe.executor, wfBackendLogger, parallelismOpts)
-	wfe.worker = backend.NewTaskHubWorker(wfe.backend, orchestrationWorker, activityWorker, wfBackendLogger)
+	wfe.worker = task.NewTaskHubWorker(wfe.backend, orchestrationWorker, activityWorker, wfBackendLogger, nil)
 	if err := wfe.worker.Start(ctx); err != nil {
 		return fmt.Errorf("failed to start workflow engine: %w", err)
 	}

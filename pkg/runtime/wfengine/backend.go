@@ -78,7 +78,7 @@ func (be *actorBackend) ScheduleWorkflow(ctx context.Context, wi *backend.Orches
 // Internally, creating a workflow instance also creates a new actor with the same ID. The create
 // request is saved into the actor's "inbox" and then executed via a reminder thread. If the app is
 // scaled out across multiple replicas, the actor might get assigned to a replicas other than this one.
-func (be *actorBackend) CreateOrchestrationInstance(ctx context.Context, e *backend.HistoryEvent) error {
+func (be *actorBackend) CreateOrchestrationInstance(ctx context.Context, e *backend.HistoryEvent, options ...backend.OrchestrationIdReusePolicyOptions) error {
 	if err := be.validateConfiguration(); err != nil {
 		return err
 	}
@@ -251,7 +251,7 @@ func (be *actorBackend) PurgeOrchestrationState(ctx context.Context, id api.Inst
 }
 
 // Start implements backend.Backend
-func (be *actorBackend) Start(ctx context.Context) error {
+func (be *actorBackend) Start(ctx context.Context, _ []string, _ []string) error {
 	var err error
 	be.startedOnce.Do(func() {
 		err = be.validateConfiguration()
